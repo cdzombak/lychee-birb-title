@@ -1,13 +1,13 @@
-# Lychee BB Tag
+# Lychee BB Tagger
 
-This program processes photos and videos from a Lychee photo album, performing OCR on the bottom 20% of each image (or the first frame of each video) and updating the photo titles in the database.
+This program processes untitled photos and videos from a Lychee photo album, performing OCR on the bottom 20% of each image (or the first frame of each video) and updating the photo titles in the database.
 
-## Prerequisites
+## Requirements
 
-- Go 1.21 or later
-- MySQL database
+- Go (1.21 or later)
+- Access to the Lychee MySQL database
 - Google Cloud account with Vision API enabled
-- Google Cloud credentials file
+    - Google Cloud credentials file
 - ffmpeg (for video processing)
 
 ## Installation
@@ -33,46 +33,32 @@ This program processes photos and videos from a Lychee photo album, performing O
 
 2. Place your Google Cloud credentials file at the path specified in the config.
 
-## Building
-
-```bash
-go build
-```
-
 ## Usage
 
 By default, the program runs in dry-run mode, which means it will process all images and videos but won't update the database. It will log the OCR results and file URLs for manual verification.
 
 ```bash
-./lychee-bb-tag
+go run .
 ```
 
 To actually update the database with the OCR results:
 
 ```bash
-./lychee-bb-tag -dry-run=false
+go run . -dry-run=false
 ```
 
 To create Things tasks for photos that have no text detected:
 
 ```bash
-./lychee-bb-tag -things
+go run . -things=true
 ```
-
-## How it Works
-
-1. Connects to the MySQL database
-2. Queries for photos in the specified album where the title is a UUID
-3. For each photo/video:
-   - Downloads the file
-   - If it's a video, extracts the first frame
-   - Crops the bottom 20% of the image
-   - Performs OCR using Google Cloud Vision API
-   - If no text is detected and --things flag is set, creates a Things task for manual review
-   - If OCR confidence is high enough (>0.8) and not in dry-run mode, updates the photo title in the database
-4. Logs all operations and results
 
 ## Supported File Types
 
 - Images: JPG, JPEG, PNG, GIF, BMP, WebP
 - Videos: MP4, MOV, AVI
+
+## Author & LICENSE
+
+- Chris Dzombak
+- This is a private repo; internal use only.
