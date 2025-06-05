@@ -1,4 +1,4 @@
-module lychee-bb-tag
+module lychee-birb-title
 
 go 1.21
 

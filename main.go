@@ -263,7 +263,7 @@ func main() {
 	flag.Parse()
 
 	if *showVersion {
-		fmt.Printf("lychee-bb-tag version %s\n", Version)
+		fmt.Printf("lychee-birb-title version %s\n", Version)
 		os.Exit(0)
 	}
 

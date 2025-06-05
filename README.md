@@ -1,4 +1,4 @@
-# Lychee BB Tagger
+# Lychee Birb Title
 
 This program processes untitled photos and videos from a Lychee photo album, performing OCR on the bottom 20% of each image (or the first frame of each video) and updating the photo titles in the database.
 
