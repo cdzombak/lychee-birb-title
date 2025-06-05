@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	cloud.google.com/go/vision v1.2.0
-	github.com/go-sql-driver/mysql v1.7.1
+	github.com/go-sql-driver/mysql v1.9.2
 	google.golang.org/api v0.167.0
 )
 
@@ -14,6 +14,7 @@ require (
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	cloud.google.com/go/longrunning v0.5.5 // indirect
 	cloud.google.com/go/vision/v2 v2.7.6 // indirect
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
