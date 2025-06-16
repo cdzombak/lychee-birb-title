@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	cloud.google.com/go/vision v1.2.0
-	github.com/go-sql-driver/mysql v1.9.2
+	github.com/go-sql-driver/mysql v1.9.3
 	google.golang.org/api v0.237.0
 )
 
