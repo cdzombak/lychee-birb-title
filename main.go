@@ -308,7 +308,8 @@ func main() {
 		SELECT p.id, p.title, sv.short_path
 		FROM photos p
 		JOIN size_variants sv ON p.id = sv.photo_id
-		WHERE p.album_id = ? AND sv.type = 0
+		JOIN photo_album pa on p.id = pa.photo_id
+		WHERE pa.album_id = ? AND sv.type = 0
 	`
 
 	rows, err := db.Query(query, config.AlbumID)
