@@ -60,5 +60,5 @@ go run . -things=true
 
 ## Author & License
 
-- Chris Dzombak
+- [Chris Dzombak](https://github.com/cdzombak)
 - Licensed under the MIT License. See [LICENSE](LICENSE) for details.
