@@ -58,7 +58,7 @@ go run . -things=true
 - Images: JPG, JPEG, PNG, GIF, BMP, WebP
 - Videos: MP4, MOV, AVI
 
-## Author & LICENSE
+## Author & License
 
 - Chris Dzombak
-- This is a private repo; internal use only.
+- Licensed under the MIT License. See [LICENSE](LICENSE) for details.
