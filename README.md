@@ -1,3 +1,5 @@
+![Lychee Birb Title](banner.jpg)
+
 # Lychee Birb Title
 
 This program processes photos and videos from a [Lychee](https://github.com/LycheeOrg/Lychee) photo album whose titles are UUIDs, performing OCR on the bottom 20% of each image (or the first frame of each video) and updating the photo titles in the database.
