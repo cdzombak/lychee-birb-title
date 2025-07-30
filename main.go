@@ -368,7 +368,7 @@ func main() {
 			})
 			continue
 		}
-		defer os.Remove(filePath)
+		defer func() { _ = os.Remove(filePath) }()
 
 		// If it's a video, extract the first frame
 		var imagePath string
@@ -383,7 +383,7 @@ func main() {
 				})
 				continue
 			}
-			defer os.Remove(imagePath)
+			defer func() { _ = os.Remove(imagePath) }()
 		} else {
 			imagePath = filePath
 		}
@@ -399,7 +399,7 @@ func main() {
 			})
 			continue
 		}
-		defer os.Remove(croppedPath)
+		defer func() { _ = os.Remove(croppedPath) }()
 
 		processedCount++
 

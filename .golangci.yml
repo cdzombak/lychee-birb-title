@@ -1,5 +1,9 @@
+---
 version: "2"
 
 linters:
-  disable:
-    - errcheck
+  exclusions:
+    rules:
+      - linters:
+          - errcheck
+        text: "Error return value of `[\\w\\.]+\\.Close` is not checked"
