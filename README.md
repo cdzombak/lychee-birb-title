@@ -1,36 +1,21 @@
 # Lychee Birb Title
 
-This program processes untitled photos and videos from a Lychee photo album, performing OCR on the bottom 20% of each image (or the first frame of each video) and updating the photo titles in the database.
+This program processes photos and videos from a [Lychee](https://github.com/LycheeOrg/Lychee) photo album whose titles are UUIDs, performing OCR on the bottom 20% of each image (or the first frame of each video) and updating the photo titles in the database.
+
+This is intended to provide correct titles on [Bird Buddy](https://mybirdbuddy.com) photos uploaded from an iPhone; see [my Bird Buddy album](https://pictures.dzombak.com/gallery/FHaZFQEiAVAvrEbhkQo_CrBB) for an example.
+
+For any photos without text, the program creates tasks in the [Things](https://culturedcode.com/things/) todo app for manual review.
 
 ## Requirements
 
 - Go (1.21 or later)
-- Access to the Lychee MySQL database
+- Access to a Lychee MySQL database (see [#16](https://github.com/cdzombak/lychee-birb-title/issues/16))
 - Google Cloud account with Vision API enabled
-    - Google Cloud credentials file
 - ffmpeg (for video processing)
 
-## Installation
+## Configuration
 
-1. Copy `config.json` and update it with your settings:
-   ```json
-   {
-       "database": {
-           "host": "localhost",
-           "port": 3306,
-           "user": "your_username",
-           "password": "your_password",
-           "database": "your_database"
-       },
-       "google_cloud": {
-           "project_id": "your_project_id",
-           "credentials_file": "path/to/credentials.json"
-       },
-       "base_url": "https://pictures.dzombak.com/uploads/",
-       "album_id": "FHaZFQEiAVAvrEbhkQo_CrBB"
-   }
-   ```
-
+1. Copy `config.sample.json` to `config.json` and update it with your settings.
 2. Place your Google Cloud credentials file at the path specified in the config.
 
 ## Usage
@@ -52,11 +37,6 @@ To create Things tasks for photos that have no text detected:
 ```bash
 go run . -things=true
 ```
-
-## Supported File Types
-
-- Images: JPG, JPEG, PNG, GIF, BMP, WebP
-- Videos: MP4, MOV, AVI
 
 ## Author & License
 
