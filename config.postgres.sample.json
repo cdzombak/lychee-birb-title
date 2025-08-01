@@ -1,8 +1,8 @@
 {
     "database": {
-        "type": "mysql",
+        "type": "postgres",
         "host": "localhost",
-        "port": 3306,
+        "port": 5432,
         "user": "lychee_user",
         "password": "your_secure_password_here",
         "database": "lychee"
