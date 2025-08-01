@@ -20,6 +20,8 @@ import (
 
 	vision "cloud.google.com/go/vision/apiv1"
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
+	_ "github.com/mattn/go-sqlite3"
 	"google.golang.org/api/option"
 )
 
@@ -27,6 +29,7 @@ var Version = "<dev>"
 
 type Config struct {
 	Database struct {
+		Type     string `json:"type"`
 		Host     string `json:"host"`
 		Port     int    `json:"port"`
 		User     string `json:"user"`
@@ -254,6 +257,33 @@ func saveState(path string, state *State) error {
 	return nil
 }
 
+func buildConnectionString(config *Config) (string, string, error) {
+	switch strings.ToLower(config.Database.Type) {
+	case "mysql":
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true",
+			config.Database.User,
+			config.Database.Password,
+			config.Database.Host,
+			config.Database.Port,
+			config.Database.Database,
+		)
+		return "mysql", dsn, nil
+	case "postgres", "postgresql":
+		dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+			config.Database.Host,
+			config.Database.Port,
+			config.Database.User,
+			config.Database.Password,
+			config.Database.Database,
+		)
+		return "postgres", dsn, nil
+	case "sqlite", "sqlite3":
+		return "sqlite3", config.Database.Database, nil
+	default:
+		return "", "", fmt.Errorf("unsupported database type: %s", config.Database.Type)
+	}
+}
+
 func main() {
 	dryRun := flag.Bool("dry-run", true, "Perform a dry run without updating the database")
 	showVersion := flag.Bool("version", false, "Show version and exit")
@@ -280,15 +310,12 @@ func main() {
 	}
 
 	// Initialize database connection
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true",
-		config.Database.User,
-		config.Database.Password,
-		config.Database.Host,
-		config.Database.Port,
-		config.Database.Database,
-	)
+	driver, dsn, err := buildConnectionString(config)
+	if err != nil {
+		log.Fatalf("Error building connection string: %v", err)
+	}
 
-	db, err := sql.Open("mysql", dsn)
+	db, err := sql.Open(driver, dsn)
 	if err != nil {
 		log.Fatalf("Error connecting to database: %v", err)
 	}

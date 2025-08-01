@@ -11,14 +11,65 @@ For any photos without text, the program creates tasks in the [Things](https://c
 ## Requirements
 
 - Go (1.21 or later)
-- Access to a Lychee MySQL database (see [#16](https://github.com/cdzombak/lychee-birb-title/issues/16))
+- Access to a Lychee database (MySQL, PostgreSQL, or SQLite)
 - Google Cloud account with Vision API enabled
 - ffmpeg (for video processing)
 
 ## Configuration
 
-1. Copy `config.sample.json` to `config.json` and update it with your settings.
+1. Copy the appropriate sample configuration file to `config.json` and update it with your settings:
+   - For MySQL: `config.sample.json` (default)
+   - For PostgreSQL: `config.postgres.sample.json`
+   - For SQLite: `config.sqlite.sample.json`
 2. Place your Google Cloud credentials file at the path specified in the config.
+
+### Database Configuration
+
+The program supports three database types:
+
+**MySQL:**
+```json
+{
+    "database": {
+        "type": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "user": "lychee_user",
+        "password": "your_password",
+        "database": "lychee"
+    }
+}
+```
+
+**PostgreSQL:**
+```json
+{
+    "database": {
+        "type": "postgres",
+        "host": "localhost",
+        "port": 5432,
+        "user": "lychee_user",
+        "password": "your_password",
+        "database": "lychee"
+    }
+}
+```
+
+**SQLite:**
+```json
+{
+    "database": {
+        "type": "sqlite",
+        "host": "",
+        "port": 0,
+        "user": "",
+        "password": "",
+        "database": "/path/to/lychee.db"
+    }
+}
+```
+
+For SQLite, only the `type` and `database` fields are required. The `database` field should contain the full path to your SQLite database file.
 
 ## Usage
 
